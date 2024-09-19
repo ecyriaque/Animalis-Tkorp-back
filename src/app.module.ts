@@ -5,6 +5,7 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { Person } from './entities/person.entity';
 import { Animal } from './entities/animal.entity';
 import { ConfigModule } from '@nestjs/config';
+import { PersonModule } from './person/person.module';
 @Module({
   imports: [
     ConfigModule.forRoot({
@@ -20,6 +21,7 @@ import { ConfigModule } from '@nestjs/config';
       entities: [Person, Animal],
       synchronize: true,
     }),
+    PersonModule,
   ],
   controllers: [AppController],
   providers: [AppService],
