@@ -1,12 +1,16 @@
 import {
   BadRequestException,
+  Body,
   Controller,
   Delete,
   Get,
   Param,
+  Post,
+  Put,
 } from '@nestjs/common';
 import { PersonService } from './person.service';
 import { Person } from 'src/entities/person.entity';
+import { PersonDto } from './person.dto';
 
 @Controller('person')
 export class PersonController {
@@ -32,5 +36,18 @@ export class PersonController {
       throw new BadRequestException('ID must be a non-negative number');
     }
     await this.personService.remove(id);
+  }
+
+  @Post()
+  async create(@Body() personDto: PersonDto): Promise<Person> {
+    return await this.personService.create(personDto);
+  }
+
+  @Put(':id')
+  async update(
+    @Param('id') id: number,
+    @Body() personDto: PersonDto,
+  ): Promise<Person> {
+    return await this.personService.update(id, personDto);
   }
 }
