@@ -23,4 +23,10 @@ export class PersonService {
 
     return person;
   }
+
+  async remove(id: number): Promise<void> {
+    await this.findOne(id);
+
+    await this.personRepository.delete(id);
+  }
 }

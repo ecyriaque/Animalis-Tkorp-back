@@ -1,4 +1,10 @@
-import { BadRequestException, Controller, Get, Param } from '@nestjs/common';
+import {
+  BadRequestException,
+  Controller,
+  Delete,
+  Get,
+  Param,
+} from '@nestjs/common';
 import { PersonService } from './person.service';
 import { Person } from 'src/entities/person.entity';
 
@@ -12,13 +18,19 @@ export class PersonController {
   }
 
   @Get(':id')
-  async findOne(@Param('id') id: string): Promise<Person> {
-    const personId = parseInt(id); // Convertir en nombre
-
-    if (isNaN(personId) || personId < 0) {
+  async findOne(@Param('id') id: number): Promise<Person> {
+    if (isNaN(id) || id < 0) {
       throw new BadRequestException('ID must be a non-negative number');
     }
 
-    return await this.personService.findOne(personId);
+    return await this.personService.findOne(id);
+  }
+
+  @Delete(':id')
+  async remove(@Param('id') id: number): Promise<void> {
+    if (isNaN(id) || id < 0) {
+      throw new BadRequestException('ID must be a non-negative number');
+    }
+    await this.personService.remove(id);
   }
 }

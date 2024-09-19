@@ -12,6 +12,6 @@ export class Animal {
   @Column()
   species: string;
 
-  @ManyToOne(() => Person, (person) => person.animals)
+  @ManyToOne(() => Person, (person) => person.animals, { onDelete: 'CASCADE' })
   owner: Person;
 }
