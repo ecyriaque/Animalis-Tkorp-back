@@ -31,15 +31,17 @@ export class PersonController {
   }
 
   @Delete(':id')
-  async remove(@Param('id') id: number): Promise<void> {
+  async remove(@Param('id') id: number): Promise<{ message: string }> {
     if (isNaN(id) || id < 0) {
       throw new BadRequestException('ID must be a non-negative number');
     }
-    await this.personService.remove(id);
+    return await this.personService.remove(id);
   }
 
   @Post()
-  async create(@Body() personDto: PersonDto): Promise<Person> {
+  async create(
+    @Body() personDto: PersonDto,
+  ): Promise<{ message: string; person: Person }> {
     return await this.personService.create(personDto);
   }
 
@@ -47,7 +49,7 @@ export class PersonController {
   async update(
     @Param('id') id: number,
     @Body() personDto: PersonDto,
-  ): Promise<Person> {
+  ): Promise<{ message: string; person: Person }> {
     return await this.personService.update(id, personDto);
   }
 }
