@@ -10,7 +10,19 @@ export class Animal {
   name: string;
 
   @Column()
+  dateOfBirth: Date;
+
+  @Column()
   species: string;
+
+  @Column()
+  breed: string;
+
+  @Column()
+  color: string;
+
+  @Column()
+  weight: number;
 
   @ManyToOne(() => Person, (person) => person.animals, { onDelete: 'CASCADE' })
   owner: Person;
