@@ -87,4 +87,29 @@ export class PersonService {
 
     return personWithMostCats;
   }
+
+  async findPersonWithHeaviestAnimal(): Promise<{
+    firstName: string;
+    lastName: string;
+    animalName: string;
+    weight: number;
+  }> {
+    const result = await this.personRepository
+      .createQueryBuilder('person')
+      .innerJoin('person.animals', 'animal')
+      .select([
+        'person.firstName',
+        'person.lastName',
+        'animal.name AS animalName',
+        'animal.weight',
+      ])
+      .where('animal.weight = (SELECT MAX(weight) FROM animal)')
+      .getRawOne();
+
+    if (!result) {
+      throw new NotFoundException('No person with heaviest animal found');
+    }
+
+    return result;
+  }
 }
