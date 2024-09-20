@@ -2,6 +2,7 @@ import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Animal } from 'src/entities/animal.entity';
 import { Repository } from 'typeorm';
+import { AnimalDto } from './DTO/animal.dto';
 
 @Injectable()
 export class AnimalService {
@@ -28,5 +29,13 @@ export class AnimalService {
     await this.findOne(id);
     await this.animalRepository.delete(id);
     return { message: `Animal avec l'ID ${id} supprimée avec succès` };
+  }
+
+  async create(
+    AnimalDto: AnimalDto,
+  ): Promise<{ message: string; animal: Animal }> {
+    const person = this.animalRepository.create(AnimalDto);
+    const savedAnimal = await this.animalRepository.save(person);
+    return { message: 'Animal créé avec succès', animal: savedAnimal };
   }
 }
