@@ -52,7 +52,7 @@ export class AnimalService {
     };
   }
 
-  // Obtenir l'animal le plus vieux
+  //get the oldest animal
   async getOlderAnimal(): Promise<Animal> {
     const animal = await this.animalRepository
       .createQueryBuilder('animal')
