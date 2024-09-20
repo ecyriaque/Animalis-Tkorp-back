@@ -51,4 +51,40 @@ export class PersonService {
       person: updatedPerson,
     };
   }
+
+  async findPersonWithMostAnimals(): Promise<Person> {
+    const personWithMostAnimals = await this.personRepository
+      .createQueryBuilder('person')
+      .innerJoin('person.animals', 'animal')
+      .select(['person.id', 'person.firstName', 'person.lastName'])
+      .addSelect('COUNT(animal.id)', 'animalCount')
+      .groupBy('person.id')
+      .orderBy('animalCount', 'DESC')
+      .getRawOne();
+
+    if (!personWithMostAnimals) {
+      throw new NotFoundException('No person found');
+    }
+
+    return personWithMostAnimals;
+  }
+
+  async findPersonWithMostCats(): Promise<any> {
+    const personWithMostCats = await this.personRepository
+      .createQueryBuilder('person')
+      .innerJoin('person.animals', 'animal')
+      .select(['person.id', 'person.firstName', 'person.lastName'])
+      .addSelect('COUNT(animal.id)', 'animalCount')
+      .where('animal.species = :species', { species: 'cat' })
+      .groupBy('person.id')
+      .orderBy('animalCount', 'DESC')
+      .limit(1)
+      .getRawOne();
+
+    if (!personWithMostCats) {
+      throw new NotFoundException('No person found');
+    }
+
+    return personWithMostCats;
+  }
 }
