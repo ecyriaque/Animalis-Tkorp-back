@@ -112,4 +112,28 @@ export class PersonService {
 
     return result;
   }
+
+  async findPersonWithHeaviestGroupOfAnimals(): Promise<{
+    firstName: string;
+    lastName: string;
+    totalWeight: number;
+  }> {
+    const result = await this.personRepository
+      .createQueryBuilder('person')
+      .innerJoin('person.animals', 'animal')
+      .select(['person.firstName', 'person.lastName'])
+      .addSelect('SUM(animal.weight)', 'totalWeight')
+      .groupBy('person.id')
+      .orderBy('totalWeight', 'DESC')
+      .limit(1)
+      .getRawOne();
+
+    if (!result) {
+      throw new NotFoundException(
+        'No person found with the heaviest group of animals',
+      );
+    }
+
+    return result;
+  }
 }
