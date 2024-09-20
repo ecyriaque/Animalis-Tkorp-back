@@ -6,10 +6,18 @@ import { Person } from './entities/person.entity';
 import { Animal } from './entities/animal.entity';
 import { ConfigModule } from '@nestjs/config';
 import { PersonModule } from './person/person.module';
+import { GraphQLModule } from '@nestjs/graphql';
+import { ApolloDriver, ApolloDriverConfig } from '@nestjs/apollo';
+import { join } from 'path';
+import { AppResolver } from './app.resolver';
 @Module({
   imports: [
     ConfigModule.forRoot({
       isGlobal: true,
+    }),
+    GraphQLModule.forRoot<ApolloDriverConfig>({
+      driver: ApolloDriver,
+      autoSchemaFile: join(process.cwd(), 'src/schema.graphql'), // Utilisation du fichier schema.graphql
     }),
     TypeOrmModule.forRoot({
       type: process.env.DATABASE_TYPE as 'mysql',
@@ -24,6 +32,6 @@ import { PersonModule } from './person/person.module';
     PersonModule,
   ],
   controllers: [AppController],
-  providers: [AppService],
+  providers: [AppService, AppResolver],
 })
 export class AppModule {}
