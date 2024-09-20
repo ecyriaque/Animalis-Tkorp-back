@@ -34,8 +34,21 @@ export class AnimalService {
   async create(
     AnimalDto: AnimalDto,
   ): Promise<{ message: string; animal: Animal }> {
-    const person = this.animalRepository.create(AnimalDto);
-    const savedAnimal = await this.animalRepository.save(person);
+    const animal = this.animalRepository.create(AnimalDto);
+    const savedAnimal = await this.animalRepository.save(animal);
     return { message: 'Animal créé avec succès', animal: savedAnimal };
+  }
+
+  async update(
+    id: number,
+    AnimalDto: AnimalDto,
+  ): Promise<{ message: string; animal: Animal }> {
+    const animal = await this.findOne(id);
+    Object.assign(animal, AnimalDto);
+    const updatedAnimal = await this.animalRepository.save(animal);
+    return {
+      message: 'Personne mise à jour avec succès',
+      animal: updatedAnimal,
+    };
   }
 }

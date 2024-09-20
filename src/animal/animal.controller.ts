@@ -6,6 +6,7 @@ import {
   Get,
   Param,
   Post,
+  Put,
 } from '@nestjs/common';
 import { Animal } from 'src/entities/animal.entity';
 import { AnimalService } from './animal.service';
@@ -41,5 +42,13 @@ export class AnimalController {
     @Body() AnimalDto: AnimalDto,
   ): Promise<{ message: string; animal: Animal }> {
     return await this.animalService.create(AnimalDto);
+  }
+
+  @Put(':id')
+  async update(
+    @Param('id') id: number,
+    @Body() AnimalDto: AnimalDto,
+  ): Promise<{ message: string; animal: Animal }> {
+    return await this.animalService.update(id, AnimalDto);
   }
 }
