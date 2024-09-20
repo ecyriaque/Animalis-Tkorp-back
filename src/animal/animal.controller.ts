@@ -16,6 +16,12 @@ import { AnimalDto } from './DTO/animal.dto';
 export class AnimalController {
   constructor(private readonly animalService: AnimalService) {}
 
+  //route pour récupérer l'animal le plus vieux
+  @Get('/older')
+  async getOlderAnimal(): Promise<Animal> {
+    return await this.animalService.getOlderAnimal();
+  }
+
   @Get()
   async findAll(): Promise<Animal[]> {
     return await this.animalService.findAll();
