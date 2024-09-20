@@ -22,6 +22,12 @@ export class AnimalController {
     return await this.animalService.getOlderAnimal();
   }
 
+  @Get('popular-species')
+  async getPopularSpecies(): Promise<{ species: string }> {
+    const species = await this.animalService.getPopularSpecies();
+    return { species };
+  }
+
   @Get()
   async findAll(): Promise<Animal[]> {
     return await this.animalService.findAll();

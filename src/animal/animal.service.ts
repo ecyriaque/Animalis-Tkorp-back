@@ -61,4 +61,17 @@ export class AnimalService {
 
     return animal;
   }
+
+  async getPopularSpecies(): Promise<string> {
+    const result = await this.animalRepository
+      .createQueryBuilder('animal')
+      .select('animal.species')
+      .addSelect('COUNT(animal.id)', 'count')
+      .groupBy('animal.species')
+      .orderBy('count', 'DESC')
+      .limit(1)
+      .getRawOne();
+
+    return result.animal_species;
+  }
 }
