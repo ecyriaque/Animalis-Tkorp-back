@@ -22,5 +22,5 @@ export class AnimalDto {
   weight: number;
 
   @IsNumber()
-  ownerId: number; // Assure-toi d'ajouter l'ID du propriétaire si nécessaire
+  ownerId: number;
 }

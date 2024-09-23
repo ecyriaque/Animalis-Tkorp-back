@@ -52,8 +52,8 @@ type PersonMostAnimalsDto {
 
 type Query {
   hello: String!
-  getPersonWithHeaviestAnimal: PersonHeaviestAnimalDto!
-  getPersonWithHeaviestGroupOfAnimals: PersonHeaviestGroupDto!
+  heaviestAnimal: PersonHeaviestAnimalDto!
+  heaviestGroup: PersonHeaviestGroupDto!
   mostAnimalsBySpecies(species: String!): PersonMostAnimalsDto!
   mostAnimals: PersonMostAnimalsDto!
   oldestAnimal: Animal!

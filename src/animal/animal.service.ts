@@ -11,12 +11,41 @@ export class AnimalService {
     private readonly animalRepository: Repository<Animal>,
   ) {}
 
-  findAll(): Promise<Animal[]> {
-    return this.animalRepository.find();
+  // Fetch all animals with all fields and owner ID
+  async findAll(): Promise<Animal[]> {
+    return this.animalRepository
+      .createQueryBuilder('animal')
+      .leftJoinAndSelect('animal.owner', 'owner')
+      .select([
+        'animal.id AS  id',
+        'animal.name AS name',
+        'animal.dateOfBirth AS dateOfBirth',
+        'animal.species AS species',
+        'animal.breed AS breed',
+        'animal.color AS color',
+        'animal.weight AS weight',
+        'owner.id AS ownerId',
+      ])
+      .getRawMany();
   }
 
+  // Fetch a specific animal by ID with all fields and owner ID
   async findOne(id: number): Promise<Animal> {
-    const animal = await this.animalRepository.findOne({ where: { id } });
+    const animal = await this.animalRepository
+      .createQueryBuilder('animal')
+      .leftJoinAndSelect('animal.owner', 'owner')
+      .select([
+        'animal.id AS  id',
+        'animal.name AS name',
+        'animal.dateOfBirth AS dateOfBirth',
+        'animal.species AS species',
+        'animal.breed AS breed',
+        'animal.color AS color',
+        'animal.weight AS weight',
+        'owner.id AS ownerId',
+      ])
+      .where('animal.id = :id', { id })
+      .getRawOne();
 
     if (!animal) {
       throw new NotFoundException(`Animal with id ${id} not found`);
@@ -56,6 +85,7 @@ export class AnimalService {
   async getOlderAnimal(): Promise<Animal> {
     const animal = await this.animalRepository
       .createQueryBuilder('animal')
+      .leftJoinAndSelect('animal.owner', 'owner') // Inclure le propriétaire
       .orderBy('animal.dateOfBirth', 'ASC')
       .getOne();
 
