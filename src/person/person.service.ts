@@ -98,10 +98,10 @@ export class PersonService {
       .createQueryBuilder('person')
       .innerJoin('person.animals', 'animal')
       .select([
-        'person.firstName',
-        'person.lastName',
+        'person.firstName AS firstName',
+        'person.lastName AS lastName',
         'animal.name AS animalName',
-        'animal.weight',
+        'animal.weight AS weight',
       ])
       .where('animal.weight = (SELECT MAX(weight) FROM animal)')
       .getRawOne();

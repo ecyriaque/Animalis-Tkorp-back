@@ -27,8 +27,14 @@ type Person {
   animals: [Animal!]
 }
 
+type PersonHeaviestAnimalDto {
+  firstName: String!
+  lastName: String!
+  animalName: String!
+  weight: Float!
+}
+
 type Query {
   hello: String!
-  persons: [Person!]!
-  person(id: Float!): Person!
+  getPersonWithHeaviestAnimal: PersonHeaviestAnimalDto!
 }

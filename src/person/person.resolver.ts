@@ -1,18 +1,13 @@
-import { Resolver, Query, Args } from '@nestjs/graphql';
-import { Person } from 'src/entities/person.entity';
+import { Resolver, Query } from '@nestjs/graphql';
 import { PersonService } from './person.service';
+import { PersonHeaviestAnimalDto } from './DTO/person-heaviest-animal.dto';
 
-@Resolver(() => Person)
+@Resolver()
 export class PersonResolver {
   constructor(private readonly personService: PersonService) {}
 
-  @Query(() => [Person], { name: 'persons' })
-  async findAll() {
-    return this.personService.findAll();
-  }
-
-  @Query(() => Person, { name: 'person' })
-  async findOne(@Args('id') id: number) {
-    return this.personService.findOne(id);
+  @Query(() => PersonHeaviestAnimalDto)
+  async getPersonWithHeaviestAnimal(): Promise<PersonHeaviestAnimalDto> {
+    return this.personService.findPersonWithHeaviestAnimal();
   }
 }
