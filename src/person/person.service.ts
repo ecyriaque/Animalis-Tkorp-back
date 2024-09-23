@@ -52,11 +52,20 @@ export class PersonService {
     };
   }
 
-  async findPersonWithMostAnimals(): Promise<Person> {
+  async findPersonWithMostAnimals(): Promise<{
+    id: number;
+    firstName: string;
+    lastName: string;
+    animalCount: number;
+  }> {
     const personWithMostAnimals = await this.personRepository
       .createQueryBuilder('person')
       .innerJoin('person.animals', 'animal')
-      .select(['person.id', 'person.firstName', 'person.lastName'])
+      .select([
+        'person.id AS id ',
+        'person.firstName AS firstName',
+        'person.lastName AS lastName',
+      ])
       .addSelect('COUNT(animal.id)', 'animalCount')
       .groupBy('person.id')
       .orderBy('animalCount', 'DESC')

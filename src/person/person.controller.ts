@@ -11,23 +11,10 @@ import {
 import { PersonService } from './person.service';
 import { Person } from 'src/entities/person.entity';
 import { PersonDto } from './DTO/person.dto';
-import { PersonMostAnimalsBySpeciesDto } from './DTO/person-most-animals-by-species.dto';
 
 @Controller('person')
 export class PersonController {
   constructor(private readonly personService: PersonService) {}
-
-  //route that retrieves the person with the most cat
-  @Get('most-cats')
-  async findPersonWithMostCats(): Promise<PersonMostAnimalsBySpeciesDto> {
-    return await this.personService.findPersonWithMostAnimalsBySpecies('cat');
-  }
-
-  // route that retrieves the person with the most animals
-  @Get('most-animals')
-  async findPersonWithMostAnimals(): Promise<Person> {
-    return await this.personService.findPersonWithMostAnimals();
-  }
 
   @Get()
   async findAll(): Promise<Person[]> {

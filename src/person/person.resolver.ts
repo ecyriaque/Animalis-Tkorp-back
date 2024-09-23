@@ -2,7 +2,7 @@ import { Resolver, Query, Args } from '@nestjs/graphql';
 import { PersonService } from './person.service';
 import { PersonHeaviestAnimalDto } from './DTO/person-heaviest-animal.dto';
 import { PersonHeaviestGroupDto } from './DTO/person-heaviest-group.dto';
-import { PersonMostAnimalsBySpeciesDto } from './DTO/person-most-animals-by-species.dto';
+import { PersonMostAnimalsDto } from './DTO/person-most-animals.dto';
 
 @Resolver()
 export class PersonResolver {
@@ -18,10 +18,15 @@ export class PersonResolver {
     return this.personService.findPersonWithHeaviestGroupOfAnimals();
   }
 
-  @Query(() => PersonMostAnimalsBySpeciesDto, { name: 'mostAnimalsBySpecies' })
+  @Query(() => PersonMostAnimalsDto, { name: 'mostAnimalsBySpecies' })
   async getPersonWithMostAnimalsBySpecies(
     @Args('species') species: string,
-  ): Promise<PersonMostAnimalsBySpeciesDto> {
+  ): Promise<PersonMostAnimalsDto> {
     return this.personService.findPersonWithMostAnimalsBySpecies(species);
+  }
+
+  @Query(() => PersonMostAnimalsDto, { name: 'mostAnimals' })
+  async getPersonWithMostAnimals(): Promise<PersonMostAnimalsDto> {
+    return this.personService.findPersonWithMostAnimals();
   }
 }
