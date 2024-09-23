@@ -8,16 +8,19 @@ import { PersonMostAnimalsDto } from './DTO/person-most-animals.dto';
 export class PersonResolver {
   constructor(private readonly personService: PersonService) {}
 
-  @Query(() => PersonHeaviestAnimalDto)
+  // get the person with the heaviest animal
+  @Query(() => PersonHeaviestAnimalDto, { name: 'heaviestAnimal' })
   async getPersonWithHeaviestAnimal(): Promise<PersonHeaviestAnimalDto> {
     return this.personService.findPersonWithHeaviestAnimal();
   }
 
-  @Query(() => PersonHeaviestGroupDto, {})
+  // get the person with the heaviest group of animals
+  @Query(() => PersonHeaviestGroupDto, { name: 'heaviestGroup' })
   async getPersonWithHeaviestGroupOfAnimals(): Promise<PersonHeaviestGroupDto> {
     return this.personService.findPersonWithHeaviestGroupOfAnimals();
   }
 
+  // get the person with the most animals by species
   @Query(() => PersonMostAnimalsDto, { name: 'mostAnimalsBySpecies' })
   async getPersonWithMostAnimalsBySpecies(
     @Args('species') species: string,
@@ -25,6 +28,7 @@ export class PersonResolver {
     return this.personService.findPersonWithMostAnimalsBySpecies(species);
   }
 
+  // get  the person with the most animals
   @Query(() => PersonMostAnimalsDto, { name: 'mostAnimals' })
   async getPersonWithMostAnimals(): Promise<PersonMostAnimalsDto> {
     return this.personService.findPersonWithMostAnimals();
