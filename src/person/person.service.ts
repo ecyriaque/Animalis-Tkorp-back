@@ -69,23 +69,32 @@ export class PersonService {
     return personWithMostAnimals;
   }
 
-  async findPersonWithMostCats(): Promise<any> {
-    const personWithMostCats = await this.personRepository
+  async findPersonWithMostAnimalsBySpecies(species: string): Promise<{
+    id: number;
+    firstName: string;
+    lastName: string;
+    animalCount: number;
+  }> {
+    const personWithMostAnimals = await this.personRepository
       .createQueryBuilder('person')
       .innerJoin('person.animals', 'animal')
-      .select(['person.id', 'person.firstName', 'person.lastName'])
+      .select([
+        'person.id AS id',
+        'person.firstName AS firstName',
+        'person.lastName AS lastName',
+      ])
       .addSelect('COUNT(animal.id)', 'animalCount')
-      .where('animal.species = :species', { species: 'cat' })
+      .where('animal.species = :species', { species })
       .groupBy('person.id')
       .orderBy('animalCount', 'DESC')
       .limit(1)
       .getRawOne();
 
-    if (!personWithMostCats) {
-      throw new NotFoundException('No person found');
+    if (!personWithMostAnimals) {
+      throw new NotFoundException('No person found with specified species');
     }
 
-    return personWithMostCats;
+    return personWithMostAnimals;
   }
 
   async findPersonWithHeaviestAnimal(): Promise<{

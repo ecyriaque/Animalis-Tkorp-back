@@ -43,8 +43,16 @@ type PersonHeaviestGroupDto {
   totalWeight: Float!
 }
 
+type PersonMostAnimalsBySpeciesDto {
+  id: Float!
+  firstName: String!
+  lastName: String!
+  animalCount: Float!
+}
+
 type Query {
   hello: String!
   getPersonWithHeaviestAnimal: PersonHeaviestAnimalDto!
   getPersonWithHeaviestGroupOfAnimals: PersonHeaviestGroupDto!
+  mostAnimalsBySpecies(species: String!): PersonMostAnimalsBySpeciesDto!
 }
