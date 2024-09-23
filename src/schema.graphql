@@ -28,13 +28,23 @@ type Person {
 }
 
 type PersonHeaviestAnimalDto {
+  person_id: Float!
   firstName: String!
   lastName: String!
+  animal_id: Float!
   animalName: String!
   weight: Float!
+}
+
+type PersonHeaviestGroupDto {
+  id: Float!
+  firstName: String!
+  lastName: String!
+  totalWeight: Float!
 }
 
 type Query {
   hello: String!
   getPersonWithHeaviestAnimal: PersonHeaviestAnimalDto!
+  getPersonWithHeaviestGroupOfAnimals: PersonHeaviestGroupDto!
 }

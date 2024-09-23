@@ -89,8 +89,10 @@ export class PersonService {
   }
 
   async findPersonWithHeaviestAnimal(): Promise<{
+    person_id: number;
     firstName: string;
     lastName: string;
+    animal_id: number;
     animalName: string;
     weight: number;
   }> {
@@ -98,8 +100,10 @@ export class PersonService {
       .createQueryBuilder('person')
       .innerJoin('person.animals', 'animal')
       .select([
+        'person.id AS person_id',
         'person.firstName AS firstName',
         'person.lastName AS lastName',
+        'animal.id AS animal_id',
         'animal.name AS animalName',
         'animal.weight AS weight',
       ])
@@ -114,6 +118,7 @@ export class PersonService {
   }
 
   async findPersonWithHeaviestGroupOfAnimals(): Promise<{
+    id: number;
     firstName: string;
     lastName: string;
     totalWeight: number;
@@ -121,7 +126,11 @@ export class PersonService {
     const result = await this.personRepository
       .createQueryBuilder('person')
       .innerJoin('person.animals', 'animal')
-      .select(['person.firstName', 'person.lastName'])
+      .select([
+        'person.id as id',
+        'person.firstName as firstName',
+        'person.lastName as lastName',
+      ])
       .addSelect('SUM(animal.weight)', 'totalWeight')
       .groupBy('person.id')
       .orderBy('totalWeight', 'DESC')

@@ -16,27 +16,6 @@ import { PersonDto } from './DTO/person.dto';
 export class PersonController {
   constructor(private readonly personService: PersonService) {}
 
-  // Route that retrieves the person with the heaviest group of animals and the total weight of their animals
-  @Get('heaviest-group-animals')
-  async getPersonWithHeaviestGroupOfAnimals(): Promise<{
-    firstName: string;
-    lastName: string;
-    totalWeight: number;
-  }> {
-    return await this.personService.findPersonWithHeaviestGroupOfAnimals();
-  }
-
-  //route that retrieves the owner of the heaviest animal with its weight and name
-  @Get('heaviest-animal')
-  async getPersonWithHeaviestAnimal(): Promise<{
-    firstName: string;
-    lastName: string;
-    animalName: string;
-    weight: number;
-  }> {
-    return await this.personService.findPersonWithHeaviestAnimal();
-  }
-
   //route that retrieves the person with the most cat
   @Get('most-cats')
   async findPersonWithMostCats(): Promise<Person> {
