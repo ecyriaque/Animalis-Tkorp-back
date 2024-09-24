@@ -60,9 +60,7 @@ export class AnimalService {
     });
     console.log(animals);
     if (!animals.length) {
-      throw new NotFoundException(
-        `No animals found for owner with ID ${ownerId}`,
-      );
+      return [];
     }
 
     return animals;
