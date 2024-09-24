@@ -54,6 +54,20 @@ export class AnimalService {
     return animal;
   }
 
+  async getAnimalsByOwnerId(ownerId: number): Promise<Animal[]> {
+    const animals = await this.animalRepository.find({
+      where: { ownerId },
+    });
+    console.log(animals);
+    if (!animals.length) {
+      throw new NotFoundException(
+        `No animals found for owner with ID ${ownerId}`,
+      );
+    }
+
+    return animals;
+  }
+
   async remove(id: number): Promise<{ message: string }> {
     await this.findOne(id);
     await this.animalRepository.delete(id);

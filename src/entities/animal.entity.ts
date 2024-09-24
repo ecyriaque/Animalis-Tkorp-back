@@ -33,6 +33,9 @@ export class Animal {
   @Column()
   weight: number;
 
+  @Column()
+  ownerId: number;
+
   @Field(() => Person)
   @ManyToOne(() => Person, (person) => person.animals, { onDelete: 'CASCADE' })
   owner: Person;

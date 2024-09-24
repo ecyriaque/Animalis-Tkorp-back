@@ -1,4 +1,4 @@
-import { Resolver, Query } from '@nestjs/graphql';
+import { Resolver, Query, Args, Int } from '@nestjs/graphql';
 import { Animal } from 'src/entities/animal.entity';
 import { AnimalService } from './animal.service';
 
@@ -16,5 +16,13 @@ export class AnimalResolver {
   @Query(() => String, { name: 'popularSpecies' })
   async getPopularSpecies(): Promise<string> {
     return this.animalService.getPopularSpecies();
+  }
+
+  // get animals by owner ID
+  @Query(() => [Animal], { name: 'animalsByOwnerId' })
+  async getAnimalsByOwnerId(
+    @Args('ownerId', { type: () => Int }) ownerId: number,
+  ): Promise<Animal[]> {
+    return this.animalService.getAnimalsByOwnerId(ownerId);
   }
 }
