@@ -42,7 +42,7 @@ export class AnimalService {
   async remove(id: number): Promise<{ message: string }> {
     await this.findOne(id);
     await this.animalRepository.delete(id);
-    return { message: `Animal avec l'ID ${id} supprimée avec succès` };
+    return { message: `Animal with ID ${id} successfully removed` };
   }
 
   async create(
@@ -50,7 +50,7 @@ export class AnimalService {
   ): Promise<{ message: string; animal: Animal }> {
     const animal = this.animalRepository.create(AnimalDto);
     const savedAnimal = await this.animalRepository.save(animal);
-    return { message: 'Animal créé avec succès', animal: savedAnimal };
+    return { message: 'Animal created successfully', animal: savedAnimal };
   }
 
   async update(
@@ -61,16 +61,15 @@ export class AnimalService {
     Object.assign(animal, AnimalDto);
     const updatedAnimal = await this.animalRepository.save(animal);
     return {
-      message: 'Personne mise à jour avec succès',
+      message: 'Person successfully updated',
       animal: updatedAnimal,
     };
   }
 
-  //get the oldest animal
   async getOlderAnimal(): Promise<Animal> {
     const animal = await this.animalRepository
       .createQueryBuilder('animal')
-      .leftJoinAndSelect('animal.owner', 'owner') // Inclure le propriétaire
+      .leftJoinAndSelect('animal.owner', 'owner')
       .orderBy('animal.dateOfBirth', 'ASC')
       .getOne();
 

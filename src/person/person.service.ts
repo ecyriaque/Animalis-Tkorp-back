@@ -28,7 +28,7 @@ export class PersonService {
   async remove(id: number): Promise<{ message: string }> {
     await this.findOne(id);
     await this.personRepository.delete(id);
-    return { message: `Personne avec l'ID ${id} supprimée avec succès` };
+    return { message: `Person with ID ${id} successfully removed` };
   }
 
   async create(
@@ -36,7 +36,7 @@ export class PersonService {
   ): Promise<{ message: string; person: Person }> {
     const person = this.personRepository.create(personDto);
     const savedPerson = await this.personRepository.save(person);
-    return { message: 'Personne créée avec succès', person: savedPerson };
+    return { message: 'Person successfully created', person: savedPerson };
   }
 
   async update(
@@ -47,7 +47,7 @@ export class PersonService {
     Object.assign(person, personDto);
     const updatedPerson = await this.personRepository.save(person);
     return {
-      message: 'Personne mise à jour avec succès',
+      message: 'Person successfully updated',
       person: updatedPerson,
     };
   }
