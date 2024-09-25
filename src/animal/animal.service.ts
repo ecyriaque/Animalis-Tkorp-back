@@ -18,7 +18,7 @@ export class AnimalService {
 
   // get a specific animal by ID
   async findOne(id: number): Promise<Animal> {
-    const animal = await this.animalRepository.findOne({ where: { id } })s;
+    const animal = await this.animalRepository.findOne({ where: { id } });
 
     if (!animal) {
       throw new NotFoundException(`Animal with id ${id} not found`);
@@ -27,10 +27,9 @@ export class AnimalService {
     return animal;
   }
 
-  
   async getAnimalsByOwnerId(ownerId: number): Promise<Animal[]> {
     const animals = await this.animalRepository.find({
-      where: { ownerId },s
+      where: { ownerId },
     });
     console.log(animals);
     if (!animals.length) {
