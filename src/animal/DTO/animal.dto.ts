@@ -1,26 +1,27 @@
 import { IsString, IsDate, IsNumber } from 'class-validator';
 import { Type } from 'class-transformer';
 
+// Data Transfer Object (DTO) for Animal
 export class AnimalDto {
-  @IsString()
+  @IsString() // Validates that name is a string
   name: string;
 
-  @IsDate()
-  @Type(() => Date)
+  @IsDate() // Validates that dateOfBirth is a date
+  @Type(() => Date) // Transforms the plain object to a Date object
   dateOfBirth: Date;
 
-  @IsString()
+  @IsString() // Validates that species is a string
   species: string;
 
-  @IsString()
+  @IsString() // Validates that breed is a string
   breed: string;
 
-  @IsString()
+  @IsString() // Validates that color is a string
   color: string;
 
-  @IsNumber()
+  @IsNumber() // Validates that weight is a number
   weight: number;
 
-  @IsNumber()
+  @IsNumber() // Validates that ownerId is a number
   ownerId: number;
 }

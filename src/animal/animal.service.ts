@@ -4,6 +4,7 @@ import { Animal } from 'src/entities/animal.entity';
 import { Repository } from 'typeorm';
 import { AnimalDto } from './DTO/animal.dto';
 
+// Injectable service for handling animal-related operations
 @Injectable()
 export class AnimalService {
   constructor(
@@ -16,7 +17,7 @@ export class AnimalService {
     return this.animalRepository.find();
   }
 
-  // get a specific animal by ID
+  // Get a specific animal by ID
   async findOne(id: number): Promise<Animal> {
     const animal = await this.animalRepository.findOne({ where: { id } });
 
@@ -27,6 +28,7 @@ export class AnimalService {
     return animal;
   }
 
+  // Get all animals associated with a specific owner ID
   async getAnimalsByOwnerId(ownerId: number): Promise<Animal[]> {
     const animals = await this.animalRepository.find({
       where: { ownerId },
@@ -39,12 +41,14 @@ export class AnimalService {
     return animals;
   }
 
+  // Remove an animal by ID
   async remove(id: number): Promise<{ message: string }> {
-    await this.findOne(id);
+    await this.findOne(id); // Ensure the animal exists before deletion
     await this.animalRepository.delete(id);
     return { message: `Animal with ID ${id} successfully removed` };
   }
 
+  // Create a new animal using the provided AnimalDto
   async create(
     AnimalDto: AnimalDto,
   ): Promise<{ message: string; animal: Animal }> {
@@ -53,19 +57,21 @@ export class AnimalService {
     return { message: 'Animal created successfully', animal: savedAnimal };
   }
 
+  // Update an existing animal with new data from AnimalDto
   async update(
     id: number,
     AnimalDto: AnimalDto,
   ): Promise<{ message: string; animal: Animal }> {
     const animal = await this.findOne(id);
-    Object.assign(animal, AnimalDto);
+    Object.assign(animal, AnimalDto); // Update the animal's properties
     const updatedAnimal = await this.animalRepository.save(animal);
     return {
-      message: 'Person successfully updated',
+      message: 'Animal successfully updated',
       animal: updatedAnimal,
     };
   }
 
+  // Get the oldest animal based on dateOfBirth
   async getOlderAnimal(): Promise<Animal> {
     const animal = await this.animalRepository
       .createQueryBuilder('animal')
@@ -76,6 +82,7 @@ export class AnimalService {
     return animal;
   }
 
+  // Get the most popular species based on the number of animals
   async getPopularSpecies(): Promise<string> {
     const result = await this.animalRepository
       .createQueryBuilder('animal')
@@ -86,6 +93,6 @@ export class AnimalService {
       .limit(1)
       .getRawOne();
 
-    return result.animal_species;
+    return result.animal_species; // Return the most popular species
   }
 }
