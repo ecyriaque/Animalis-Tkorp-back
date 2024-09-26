@@ -16,9 +16,10 @@ Before you begin, ensure you have the following installed:
 - **Node.js** (version 18 or higher)
 - **Docker** (version 20.12.2 or higher)
 - **npm** (comes with Node.js)
-- **NestJS** (if not globally installed: `npm i -g @nestjs/cli`)
 
 ---
+
+
 
 ## Installation and Usage
 
@@ -26,13 +27,22 @@ You have two options to run the application: running the backend via Docker or i
 
 ### Running the Backend via Docker
 
-To run the backend via Docker, download the necessary files from the [docker directory](/docker) of the repository and place them in the same directory.
+To run the backend via Docker, follow these steps:
 
-1. **Download the Files**  
-   Ensure you have the [docker-compose.yml](/docker/docker-compose.yml) and [init.sql](/docker/init.sql) files in your directory.
+1. **Create Directories**  
+   Create a folder named `animalis`, then navigate into it and create another folder named `animalis-back`:
 
+   ```bash
+   mkdir animalis
+   cd animalis
+   mkdir animalis-back
+   cd animalis-back
+   ```
 
-2. **Run the Application**  
+2. **Download the Files**  
+   Ensure you have the [docker-compose.yml](/docker/docker-compose.yml) and [init.sql](/docker/init.sql) files in your `animalis-back` directory.
+
+3. **Run the Application**  
    In the same directory as your `docker-compose.yml` and `init.sql`, follow these steps:
 
    1. Start the MySQL service first by running the following command:
@@ -55,6 +65,8 @@ This will launch:
 - The **Animalis Backend** on port 3000
 
 ---
+
+
 
 
 
