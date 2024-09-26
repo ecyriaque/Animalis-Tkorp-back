@@ -69,7 +69,8 @@ Once the backend is running with Docker Compose, follow these steps to run the f
 4. **Start the Frontend**:  
    After installing the dependencies, start the frontend server:
    ```bash
-   npm run build && npm run start -- -p <port>
+   npm run build
+   npm run start -- -p<port>
    ```
    The frontend should now be accessible at http://localhost:<port>.
 
@@ -165,6 +166,7 @@ This will launch only the MySQL container, and you can manage it via phpMyAdmin 
 4. **Start the Frontend**:
    After installing the dependencies, start the frontend server:
 ```
-    npm run build && npm run start -- -p <port>
+    npm run build
+    npm run start -- -p<port>
 ```
 The frontend should now be accessible at http://localhost:<port>.
