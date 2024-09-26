@@ -184,4 +184,4 @@ This will launch only the MySQL container, and you can manage it via phpMyAdmin 
     npm run build
     npm run start -- -p<port>
 ```
-The frontend should now be accessible at http://localhost:<port>.
+The frontend should now be accessible at http://localhost:port.
