@@ -31,17 +31,32 @@ To run the backend via Docker, download the necessary files from the [docker dir
 1. **Download the Files**  
    Ensure you have the [docker-compose.yml](/docker/docker-compose.yml) and [init.sql](/docker/init.sql) files in your directory.
 
+
 2. **Run the Application**  
-   In the same directory as your `docker-compose.yml` and `init.sql`, run the following command:
+   In the same directory as your `docker-compose.yml` and `init.sql`, follow these steps:
+
+   1. Start the MySQL service first by running the following command:
+
+   ```bash
+   docker-compose up mysql
+   ```
+
+   Wait until MySQL is fully launched and ready.
+
+   2. Once MySQL is up and running, start the other services with the command:
 
    ```bash
    docker-compose up
    ```
 
-This will launch (you can change ports and environment variables in the docker compose):
+This will launch:
 - A **MySQL** database on port 3306
 - **phpMyAdmin** on port 8080 to manage the MySQL database
 - The **Animalis Backend** on port 3000
+
+---
+
+
 
 ### Running the Frontend
 
