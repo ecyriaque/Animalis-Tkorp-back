@@ -1,0 +1,49 @@
+services:
+  mysql:
+    image: mysql:8.0
+    container_name: mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: rootpassword
+      MYSQL_DATABASE: animalis
+      MYSQL_USER: adminAnimalis
+      MYSQL_PASSWORD: WJAkzemDkxmy2sC
+    ports:
+      - "3306:3306"
+    volumes:
+      - ./mysql-data:/var/lib/mysql
+      - ./init.sql:/docker-entrypoint-initdb.d/init.sql
+
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin
+    container_name: phpmyadmin
+    environment:
+      PMA_HOST: mysql
+      PMA_USER: adminAnimalis
+      PMA_PASSWORD: WJAkzemDkxmy2sC
+    ports:
+      - "8080:80"
+    depends_on:
+      - mysql
+
+  animalis-backend:
+    image: ecyriaque/animalis-tkorp-back
+    environment:
+      DATABASE_TYPE: mysql
+      DATABASE_HOST: mysql
+      DATABASE_PORT: 3306
+      DATABASE_USERNAME: adminAnimalis
+      DATABASE_PASSWORD: WJAkzemDkxmy2sC
+      DATABASE_NAME: animalis
+    depends_on:
+      - mysql
+    ports:
+      - "3000:3000"
+
+  animalis-frontend:
+    image: ecyriaque/animalis-tkorp-front
+    environment:
+      NEXT_PUBLIC_API_URL: http://animalis-backend:3000
+    ports:
+      - "3001:3000"
+    depends_on:
+      - animalis-backend
