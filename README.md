@@ -71,6 +71,7 @@ Once the backend is running with Docker Compose, follow these steps to run the f
    ```bash
    npm run build && npm run start -- -p <port>
    ```
+   The frontend should now be accessible at http://localhost:<port>.
 
 ---
 ## Running the app  Manually
@@ -166,4 +167,4 @@ This will launch only the MySQL container, and you can manage it via phpMyAdmin 
 ```
     npm run build && npm run start -- -p <port>
 ```
-The frontend should now be accessible at http://localhost:3001.
+The frontend should now be accessible at http://localhost:<port>.
