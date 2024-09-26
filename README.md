@@ -1,8 +1,7 @@
 # Animalis
 
-**Description**:  
-Briefly describe the purpose and functionality of your project.
-
+Description:
+Animalis is a platform to manage animals and their owners. It includes features to add, edit, view, and delete animals, The project is built using Next.js for the frontend and NestJS for the backend.
 ---
 
 ## Prerequisites
