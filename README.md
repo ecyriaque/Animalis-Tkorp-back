@@ -12,7 +12,7 @@ Before you begin, ensure you have the following installed:
 - **Node.js** (version 18 or higher)
 - **Docker** (version 20.12.2 or higher)
 - **npm** (comes with Node.js)
-- **NestJS** (if not globally installed: `npm i -g @nestjs/cli`)
+
 
 ---
 
