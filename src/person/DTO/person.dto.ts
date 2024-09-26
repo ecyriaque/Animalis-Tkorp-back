@@ -19,4 +19,3 @@ export class PersonDto {
   @IsOptional()
   phoneNumber?: string;
 }
-// Optionnel pour la mise à jour des ojbet
