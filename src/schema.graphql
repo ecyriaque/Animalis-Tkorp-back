@@ -1,0 +1,62 @@
+# ------------------------------------------------------
+# THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
+# ------------------------------------------------------
+
+type Animal {
+  id: Int!
+  name: String!
+  dateOfBirth: DateTime!
+  species: String!
+  breed: String!
+  color: String!
+  weight: Float!
+  owner: Person!
+}
+
+"""
+A date-time string at UTC, such as 2019-12-03T09:54:33Z, compliant with the date-time format.
+"""
+scalar DateTime
+
+type Person {
+  id: Int!
+  lastName: String!
+  firstName: String!
+  email: String!
+  phoneNumber: String!
+  animals: [Animal!]
+}
+
+type PersonHeaviestAnimalDto {
+  person_id: Float!
+  firstName: String!
+  lastName: String!
+  animal_id: Float!
+  animalName: String!
+  weight: Float!
+}
+
+type PersonHeaviestGroupDto {
+  id: Float!
+  firstName: String!
+  lastName: String!
+  totalWeight: Float!
+}
+
+type PersonMostAnimalsDto {
+  id: Float!
+  firstName: String!
+  lastName: String!
+  animalCount: Float!
+}
+
+type Query {
+  hello: String!
+  heaviestAnimal: PersonHeaviestAnimalDto!
+  heaviestGroup: PersonHeaviestGroupDto!
+  mostAnimalsBySpecies(species: String!): PersonMostAnimalsDto!
+  mostAnimals: PersonMostAnimalsDto!
+  oldestAnimal: Animal!
+  popularSpecies: String!
+  animalsByOwnerId(ownerId: Int!): [Animal!]!
+}
