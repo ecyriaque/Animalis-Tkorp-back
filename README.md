@@ -1,7 +1,12 @@
+Voici la version modifiée de ta documentation avec les ajustements demandés :
+
+---
+
 # Animalis
 
-Description:
-Animalis is a platform to manage animals and their owners. It includes features to add, edit, view, and delete animals, The project is built using Next.js for the frontend and NestJS for the backend.
+## Description
+Animalis is a platform to manage animals and their owners. It includes features to add, edit, view, and delete animals. The project is built using Next.js for the frontend and NestJS for the backend.
+
 ---
 
 ## Prerequisites
@@ -17,11 +22,11 @@ Before you begin, ensure you have the following installed:
 
 ## Installation and Usage
 
-You have two options to run the application: via Docker or by installing it manually.
+You have two options to run the application: running the backend via Docker or installing it manually.
 
-### Running the Application via Docker
+### Running the Backend via Docker
 
-To run the application via Docker, download the necessary files from the [docker directory](/docker) of the repository and place them in the same directory.
+To run the backend via Docker, download the necessary files from the [docker directory](/docker) of the repository and place them in the same directory.
 
 1. **Download the Files**  
    Ensure you have the [docker-compose.yml](/docker/docker-compose.yml) and [init.sql](/docker/init.sql) files in your directory.
@@ -29,17 +34,45 @@ To run the application via Docker, download the necessary files from the [docker
 2. **Run the Application**  
    In the same directory as your `docker-compose.yml` and `init.sql`, run the following command:
 
-   - `docker-compose up`
+   ```bash
+   docker-compose up
+   ```
 
 This will launch (you can change ports and environment variables in the docker compose):
 - A **MySQL** database on port 3306
 - **phpMyAdmin** on port 8080 to manage the MySQL database
 - The **Animalis Backend** on port 3000
-- The **Animalis Frontend** on port 3001
+
+### Running the Frontend
+
+Once the backend is running with Docker Compose, follow these steps to run the frontend:
+
+1. **Clone the Frontend Repository**:  
+   Open a new terminal window and run the following commands:
+   ```bash
+   git clone https://github.com/ecyriaque/animalis-tkorp-front.git
+   cd animalis-tkorp-front
+   ```
+
+2. **Create a `.env` File**:  
+   In the root of the frontend repository, create a file named `.env` and set the API URL pointing to the backend:
+   ```env
+   NEXT_PUBLIC_API_URL=http://localhost:3000
+   ```
+
+3. **Install Dependencies**:  
+   Run the following command to install the necessary dependencies:
+   ```bash
+   npm install
+   ```
+
+4. **Start the Frontend**:  
+   After installing the dependencies, start the frontend server:
+   ```bash
+   npm run build && npm run start -- -p <port>
+   ```
 
 ---
-
-
 ## Running the app  Manually
 
 If you want to run the app  manually  you can use the following configuration in your docker-compose.yml:
@@ -131,6 +164,6 @@ This will launch only the MySQL container, and you can manage it via phpMyAdmin 
 4. **Start the Frontend**:
    After installing the dependencies, start the frontend server:
 ```
-   npm run dev
+    npm run build && npm run start -- -p <port>
 ```
 The frontend should now be accessible at http://localhost:3001.
